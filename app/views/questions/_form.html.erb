@@ -1,0 +1,5 @@
+<%= form_for @question, url: update_form_question_path, remote: true, class: 'form-inline', id: 'edit_question', method: :patch do |f| %>
+  <div class='form-group'>
+    <%= f.text_field :text, class: 'form-control' %>
+  </div>
+<% end %>

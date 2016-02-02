@@ -1,0 +1,4 @@
+<% if @update_question %>
+  $("#<%= dom_id @question%>").html("<%=j render partial: 'question_detail', locals: { question: @question } %>");
+  $("#<%= dom_id @question%>").removeAttr('style');
+<% end %>

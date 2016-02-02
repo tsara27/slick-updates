@@ -1,13 +1,13 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_update_form
-  before_action :set_question, only: [:destroy]
+  before_action :set_question, only: [:destroy, :edit, :update]
 
   def index
   end
 
   def create
-    @question = @update_form.questions.create!(create_params)
+    @question = @update_form.questions.create!(question_params)
 
     if request.xhr?
       ActionCable.server.broadcast \
@@ -15,6 +15,10 @@ class QuestionsController < ApplicationController
 
       head :created
     end
+  end
+
+  def update
+    @update_question = @question.update(question_params)
   end
 
   def destroy
@@ -38,7 +42,7 @@ class QuestionsController < ApplicationController
     @question = @update_form.questions.find(params[:id])
   end
 
-  def create_params
+  def question_params
     params.require(:question).permit(:text)
   end
 end
